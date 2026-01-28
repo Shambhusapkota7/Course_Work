@@ -1,0 +1,49 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+
+<div class="nav-bar">
+    <a href="add.php">➕ Add Event</a>
+    <a href="search.php" class="secondary">🔍 Advanced Search</a>
+</div>
+
+<br><br>
+
+<input type="text" id="search" placeholder="Live search event..." autocomplete="off">
+<div id="result"></div>
+
+<br><br>
+
+<table>
+    <tr>
+        <th>Event Name</th>
+        <th>Location</th>
+        <th>Date</th>
+        <th>Organizer</th>
+        <th>Actions</th>
+    </tr>
+
+    {% if events is empty %}
+        <tr>
+            <td colspan="5">No events found.</td>
+        </tr>
+    {% else %}
+        {% for event in events %}
+            <tr>
+                <td>{{ event.event_name|e }}</td>
+                <td>{{ event.location|e }}</td>
+                <td>{{ event.event_date|e }}</td>
+                <td>{{ event.organizer|e }}</td>
+                <td>
+                    <a href="edit.php?id={{ event.id }}" class="btn btn-edit">Edit</a>
+                    <a href="delete.php?id={{ event.id }}"
+                       class="btn btn-delete"
+                       onclick="return confirm('Delete this event?')">Delete</a>
+                    <a href="register.php?event_id={{ event.id }}" class="btn btn-register">Register</a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>
+
+{% endblock %}

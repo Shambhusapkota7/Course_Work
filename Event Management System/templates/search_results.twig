@@ -1,0 +1,57 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+
+<h2>Search Events</h2>
+
+<div class="search-form">
+    <form method="get" action="search.php">
+        <label>Keyword:</label>
+        <input type="text" name="q" value="{{ q|e }}">
+
+        <label>Location:</label>
+        <input type="text" name="location" value="{{ location|e }}">
+
+        <label>Date:</label>
+        <input type="date" name="date" value="{{ date|e }}">
+
+        <button type="submit" name="search">Search</button>
+        <a href="index.php" class="btn-back">← Back to Events</a>
+    </form>
+</div>
+
+{% if searched %}
+    {% if events is empty %}
+        <p class="no-results">No events found.</p>
+    {% else %}
+        <table>
+            <tr>
+                <th>Event Name</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Organizer</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.event_name|e }}</td>
+                    <td>{{ event.location|e }}</td>
+                    <td>{{ event.event_date|e }}</td>
+                    <td>{{ event.organizer|e }}</td>
+                    <td class="actions">
+                        <a href="edit.php?id={{ event.id }}" class="btn btn-edit">Edit</a>
+                        <a href="register.php?event_id={{ event.id }}" class="btn btn-register">Register</a>
+                        <a href="delete.php?id={{ event.id }}"
+                           class="btn btn-delete"
+                           onclick="return confirm('Delete this event?')">
+                           Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endif %}
+
+{% endblock %}

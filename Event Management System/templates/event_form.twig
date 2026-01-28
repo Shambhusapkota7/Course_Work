@@ -1,0 +1,51 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+
+<form method="post">
+
+    {# ✅ CSRF token (required) #}
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+
+    {# ✅ Required for Ajax validation in edit.php #}
+    {% if exclude_id is defined %}
+        <input type="hidden" id="exclude_id" value="{{ exclude_id }}">
+    {% endif %}
+
+    <label>Event Name:</label><br>
+    <input type="text" name="event_name"
+           value="{{ event.event_name|default('')|e }}"
+           required>
+    <br><br>
+
+    <label>Location:</label><br>
+    <input type="text" name="location"
+           value="{{ event.location|default('')|e }}"
+           required>
+    <br><br>
+
+    <label>Date:</label><br>
+    <input type="date" name="event_date"
+           value="{{ event.event_date|default('')|e }}"
+           required>
+    <br><br>
+
+    <label>Organizer:</label><br>
+    <input type="text" name="organizer"
+           value="{{ event.organizer|default('')|e }}"
+           required>
+    <br><br>
+
+    <label>Description:</label><br>
+    <textarea name="description">{{ event.description|default('')|e }}</textarea>
+    <br><br>
+
+    <button type="submit">{{ button_text }}</button>
+</form>
+
+<br>
+<a href="index.php" class="btn-back">← Back to Events</a>
+
+{% endblock %}

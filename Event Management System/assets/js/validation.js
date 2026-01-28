@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameInput = document.querySelector('input[name="event_name"]');
   if (!nameInput) return;
 
-  // A small message area under event_name (auto-created)
+  // Message area
   let msg = document.getElementById("nameCheckMsg");
   if (!msg) {
     msg = document.createElement("div");
@@ -11,8 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nameInput.insertAdjacentElement("afterend", msg);
   }
 
-  // If you want to exclude the current record during edit
-  // Put: <input type="hidden" id="exclude_id" value="123">
+  // Exclude current record (edit)
   const excludeIdEl = document.getElementById("exclude_id");
 
   let timer = null;
@@ -21,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
     clearTimeout(timer);
     const value = nameInput.value.trim();
 
-    // Basic client-side validation
     if (value.length < 3) {
       msg.textContent = "Event name must be at least 3 characters.";
       msg.style.color = "red";
@@ -30,7 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     timer = setTimeout(() => {
       const excludeId = excludeIdEl ? excludeIdEl.value : "";
-      fetch(`../ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${encodeURIComponent(excludeId)}`)
+
+      // ✅ FIXED: ABSOLUTE PATH
+      fetch(
+        `/COURSE_WORK/Event%20Management%20System/ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${encodeURIComponent(excludeId)}`
+      )
         .then((res) => res.json())
         .then((data) => {
           msg.textContent = data.message;

@@ -13,19 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        fetch("../ajax/search_autocomplete.php?q=" + encodeURIComponent(query))
+        // ✅ ABSOLUTE PATH (FIX)
+        fetch("/COURSE_WORK/Event%20Management%20System/ajax/search_autocomplete.php?q=" + encodeURIComponent(query))
             .then(res => res.text())
             .then(data => {
                 resultBox.innerHTML = data;
             });
     });
 
-    // ✅ CLICK RESULT → REDIRECT WITH FILTER
+    // ✅ CLICK RESULT → REDIRECT
     resultBox.addEventListener("click", (e) => {
         if (e.target.classList.contains("search-item")) {
             const eventName = e.target.dataset.name;
-            if (!eventName) return;
-
             window.location.href =
                 "search.php?q=" + encodeURIComponent(eventName) + "&search=1";
         }
