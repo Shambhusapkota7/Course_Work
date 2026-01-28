@@ -2,28 +2,29 @@
 
 {% block content %}
 
-<h2>Sign Up</h2>
+<div class="auth-container">
+    <h2>Sign Up</h2>
 
-{% if error %}
-    <p class="error">{{ error }}</p>
-{% endif %}
+    {% if error %}
+        <div class="auth-error">{{ error }}</div>
+    {% endif %}
 
-<form method="post">
-    <label>Full Name</label>
-    <input type="text" name="full_name" required>
+    <form method="post">
+        <label>Full Name</label>
+        <input type="text" name="full_name" required>
 
-    <label>Email</label>
-    <input type="email" name="email" required>
+        <label>Email</label>
+        <input type="email" name="email" required>
 
-    <label>Password</label>
-    <input type="password" name="password" required>
+        <label>Password</label>
+        <input type="password" name="password" required>
 
-    <button type="submit">Sign Up</button>
-</form>
+        <button type="submit">Sign Up</button>
+    </form>
 
-<p>
-    Already have an account?
-    <a href="login.php">Login</a>
-</p>
+    <div class="auth-switch">
+        Already have an account? <a href="login.php">Login</a>
+    </div>
+</div>
 
 {% endblock %}
