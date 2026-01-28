@@ -158,3 +158,80 @@ footer {
     body { padding: 15px; }
     #search { width: 100%; }
 }
+/* ===== AUTH (LOGIN / SIGNUP / LOGOUT) ===== */
+
+/* Top-right auth bar */
+.auth-bar {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.auth-bar span {
+    margin-right: 10px;
+}
+
+.auth-bar a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: #fff;
+    background: #dc2626;
+    font-size: 14px;
+}
+
+.auth-bar a:hover {
+    background: #b91c1c;
+}
+
+/* Login / Signup card */
+.auth-container {
+    max-width: 420px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 28px;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.12);
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.auth-container input {
+    margin-bottom: 15px;
+}
+
+.auth-container button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Switch login/signup links */
+.auth-switch {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.auth-switch a {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+/* Success & error messages */
+.auth-success {
+    color: #15803d;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.auth-error {
+    color: #b91c1c;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+}
