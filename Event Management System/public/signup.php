@@ -1,5 +1,7 @@
 <?php
+require_once dirname(__DIR__) . "/vendor/autoload.php";
 require_once dirname(__DIR__) . "/config/db.php";
+
 session_start();
 
 $error = "";
@@ -14,7 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         try {
             $stmt = $pdo->prepare(
-                "INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)"
+                "INSERT INTO users (full_name, email, password)
+                 VALUES (?, ?, ?)"
             );
             $stmt->execute([$name, $email, $hash]);
 
@@ -23,24 +26,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } catch (PDOException $e) {
             $error = "Email already exists";
         }
+    } else {
+        $error = "All fields are required";
     }
 }
-?>
 
-<h2>Sign Up</h2>
-<p style="color:red"><?= htmlspecialchars($error) ?></p>
+// Twig setup
+$loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__) . "/templates");
+$twig = new Twig\Environment($loader);
 
-<form method="post">
-    Full Name<br>
-    <input name="full_name" required><br><br>
+// Make session available in layout
+$twig->addGlobal("session", $_SESSION);
 
-    Email<br>
-    <input type="email" name="email" required><br><br>
-
-    Password<br>
-    <input type="password" name="password" required><br><br>
-
-    <button type="submit">Sign Up</button>
-</form>
-
-<p>Already have an account? <a href="login.php">Login</a></p>
+// Render UI
+echo $twig->render("signup.twig", [
+    "title" => "Sign Up",
+    "error" => $error
+]);
