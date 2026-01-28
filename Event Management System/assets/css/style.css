@@ -329,3 +329,42 @@ footer {
         margin-bottom: 15px;
     }
 }
+/* ===== INLINE AUTH LINKS (LOGIN / SIGNUP / LOGOUT TEXT) ===== */
+
+/* New user? Sign up / Already have account? Login */
+.auth-inline {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 15px;
+    color: #374151;
+}
+
+.auth-inline a {
+    margin-left: 4px;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.auth-inline a:hover {
+    text-decoration: underline;
+}
+
+/* Welcome user | Logout (top bar text style) */
+.auth-inline-top {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.auth-inline-top a {
+    margin-left: 6px;
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.auth-inline-top a:hover {
+    text-decoration: underline;
+}
