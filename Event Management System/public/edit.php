@@ -3,6 +3,8 @@ require_once dirname(__DIR__) . "/vendor/autoload.php";
 require_once dirname(__DIR__) . "/config/db.php";
 require_once dirname(__DIR__) . "/includes/csrf.php";
 
+
+
 $id = (int)($_GET["id"] ?? 0);
 if ($id <= 0) {
     die("Invalid event ID");
@@ -39,14 +41,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit;
 }
 
-// Twig render (UI moved to Twig)
+// Twig setup
 $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__) . "/templates");
 $twig = new Twig\Environment($loader);
 
+// ✅ Add global session BEFORE render
+$twig->addGlobal('session', $_SESSION);
+
+// Render
 echo $twig->render("event_form.twig", [
-    "title" => "Edit Event",
-    "button_text" => "Update Event",
-    "event" => $event,
-    "csrf" => csrf_token(),
-    "exclude_id" => $id   // ✅ for Ajax validation
+    "title"        => "Edit Event",
+    "button_text"  => "Update Event",
+    "event"        => $event,
+    "csrf"         => csrf_token(),
+    "exclude_id"   => $id   // for Ajax validation
 ]);

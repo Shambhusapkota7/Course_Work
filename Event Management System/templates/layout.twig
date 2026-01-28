@@ -13,6 +13,13 @@
 
 <h1>Event Management System</h1>
 <hr>
+{% if session.user_name is defined %}
+    <div style="float:right;">
+        Welcome, {{ session.user_name|e }} |
+        <a href="logout.php">Logout</a>
+    </div>
+{% endif %}
+
 
 {% block content %}{% endblock %}
 

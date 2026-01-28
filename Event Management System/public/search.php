@@ -2,6 +2,12 @@
 require_once dirname(__DIR__) . "/vendor/autoload.php";
 require_once dirname(__DIR__) . "/config/db.php";
 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
 $q        = trim($_GET['q'] ?? '');
 $location = trim($_GET['location'] ?? '');
 $date     = trim($_GET['date'] ?? '');
@@ -33,10 +39,14 @@ if ($searched) {
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Twig render
+// Twig setup
 $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__) . "/templates");
 $twig = new Twig\Environment($loader);
 
+// ✅ Add globals BEFORE render
+$twig->addGlobal('session', $_SESSION);
+
+// Render
 echo $twig->render("search_results.twig", [
     "title"    => "Search Events",
     "events"   => $events,

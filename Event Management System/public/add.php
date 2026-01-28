@@ -3,6 +3,8 @@ require_once dirname(__DIR__) . "/vendor/autoload.php";
 require_once dirname(__DIR__) . "/config/db.php";
 require_once dirname(__DIR__) . "/includes/csrf.php";
 
+
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!verify_csrf($_POST["csrf"])) {
         die("Invalid CSRF token");
@@ -24,12 +26,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit;
 }
 
-// Twig render (UI moved to Twig)
+// Twig setup
 $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__) . "/templates");
 $twig = new Twig\Environment($loader);
 
+// ✅ Add global session BEFORE render
+$twig->addGlobal('session', $_SESSION);
+
+// Render
 echo $twig->render("event_form.twig", [
-    "title" => "Add Event",
-    "button_text" => "Add Event",
-    "csrf" => csrf_token()
+    "title"        => "Add Event",
+    "button_text"  => "Add Event",
+    "csrf"         => csrf_token()
 ]);

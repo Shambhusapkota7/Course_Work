@@ -1,7 +1,11 @@
 <?php
 require_once dirname(__DIR__) . "/config/db.php";
 require_once dirname(__DIR__) . "/includes/functions.php";
-
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
 // ✅ Get event_id safely
 $event_id = (int)($_GET['event_id'] ?? 0);
 
