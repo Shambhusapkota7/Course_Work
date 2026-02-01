@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!searchInput || !resultBox) return;
 
-    // Live typing search
     searchInput.addEventListener("keyup", () => {
         const query = searchInput.value.trim();
 
@@ -13,15 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // ✅ ABSOLUTE PATH (FIX)
-        fetch("/COURSE_WORK/Event%20Management%20System/ajax/search_autocomplete.php?q=" + encodeURIComponent(query))
+        // ✅ RELATIVE PATH (CORRECT)
+        fetch("ajax/search_autocomplete.php?q=" + encodeURIComponent(query))
             .then(res => res.text())
             .then(data => {
                 resultBox.innerHTML = data;
             });
     });
 
-    // ✅ CLICK RESULT → REDIRECT
     resultBox.addEventListener("click", (e) => {
         if (e.target.classList.contains("search-item")) {
             const eventName = e.target.dataset.name;

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nameInput.insertAdjacentElement("afterend", msg);
   }
 
-  // Exclude current record (edit)
+  // Exclude current record (edit mode)
   const excludeIdEl = document.getElementById("exclude_id");
 
   let timer = null;
@@ -29,12 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
     timer = setTimeout(() => {
       const excludeId = excludeIdEl ? excludeIdEl.value : "";
 
-      // ✅ FIXED: ABSOLUTE PATH
+      // ✅ RELATIVE PATH (CORRECT)
       fetch(
-        `/COURSE_WORK/Event%20Management%20System/ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${encodeURIComponent(excludeId)}`
+        `ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${encodeURIComponent(excludeId)}`
       )
-        .then((res) => res.json())
-        .then((data) => {
+        .then(res => res.json())
+        .then(data => {
           msg.textContent = data.message;
           msg.style.color = data.ok ? "green" : "red";
         })
