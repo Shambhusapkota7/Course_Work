@@ -3,7 +3,7 @@ require_once dirname(__DIR__) . "/vendor/autoload.php";
 require_once dirname(__DIR__) . "/config/db.php";
 require_once dirname(__DIR__) . "/includes/csrf.php";
 
-
+session_start(); // ✅ REQUIRED
 
 $id = (int)($_GET["id"] ?? 0);
 if ($id <= 0) {
@@ -45,14 +45,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__) . "/templates");
 $twig = new Twig\Environment($loader);
 
-// ✅ Add global session BEFORE render
+// ✅ Add session BEFORE render
 $twig->addGlobal('session', $_SESSION);
 
 // Render
 echo $twig->render("event_form.twig", [
-    "title"        => "Edit Event",
-    "button_text"  => "Update Event",
-    "event"        => $event,
-    "csrf"         => csrf_token(),
-    "exclude_id"   => $id   // for Ajax validation
+    "title"       => "Edit Event",
+    "button_text" => "Update Event",
+    "event"       => $event,
+    "csrf"        => csrf_token(),
+    "exclude_id"  => $id
 ]);
