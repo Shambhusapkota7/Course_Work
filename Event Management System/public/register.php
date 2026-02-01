@@ -6,14 +6,14 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
-// ✅ Get event_id safely
+//  Get event_id safely
 $event_id = (int)($_GET['event_id'] ?? 0);
 
 if ($event_id <= 0) {
     die("Invalid event ID");
 }
 
-// ✅ Fetch event correctly
+//  Fetch event correctly
 $stmt = $pdo->prepare("SELECT id, event_name FROM events WHERE id = ?");
 $stmt->execute([$event_id]);
 $event = $stmt->fetch();
@@ -22,7 +22,7 @@ if (!$event) {
     die("Event not found");
 }
 
-// ✅ Handle registration
+// Handle registration
 $success = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare(

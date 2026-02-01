@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const nameInput = document.querySelector('input[name="event_name"]');
     if (!nameInput) return;
 
@@ -13,7 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const excludeIdEl = document.getElementById("exclude_id");
     let timer;
 
+    // Live validation
     nameInput.addEventListener("input", () => {
+
         clearTimeout(timer);
         const value = nameInput.value.trim();
 
@@ -24,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         timer = setTimeout(() => {
+
             const excludeId = excludeIdEl ? excludeIdEl.value : "";
 
             fetch(`../ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${excludeId}`)
@@ -36,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     msg.textContent = "Validation failed.";
                     msg.style.color = "red";
                 });
+
         }, 300);
     });
 });

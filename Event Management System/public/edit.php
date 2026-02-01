@@ -1,15 +1,16 @@
 <?php
-require_once dirname(__DIR__) . "/vendor/autoload.php";
-require_once dirname(__DIR__) . "/config/db.php";
-require_once dirname(__DIR__) . "/includes/csrf.php";
+require_once dirname(__DIR__) . "/vendor/autoload.php"; // Composer / Twig
+require_once dirname(__DIR__) . "/config/db.php";        // DB
+require_once dirname(__DIR__) . "/includes/csrf.php";    // CSRF
 
-session_start(); // ✅ REQUIRED
+session_start(); // Start session
 
-$id = (int)($_GET["id"] ?? 0);
+$id = (int)($_GET["id"] ?? 0); // Event ID
 if ($id <= 0) {
     die("Invalid event ID");
 }
 
+// Fetch event
 $stmt = $pdo->prepare("SELECT * FROM events WHERE id = ?");
 $stmt->execute([$id]);
 $event = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -18,7 +19,9 @@ if (!$event) {
     die("Event not found");
 }
 
+// Handle update
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     if (!verify_csrf($_POST["csrf"])) {
         die("Invalid CSRF token");
     }
@@ -28,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
          SET event_name=?, location=?, event_date=?, organizer=?, description=?
          WHERE id=?"
     );
+
     $stmt->execute([
         $_POST["event_name"],
         $_POST["location"],
@@ -37,18 +41,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $id
     ]);
 
-    header("Location: index.php");
+    header("Location: index.php"); // Redirect
     exit;
 }
 
 // Twig setup
 $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__) . "/templates");
-$twig = new Twig\Environment($loader);
+$twig   = new Twig\Environment($loader);
 
-// ✅ Add session BEFORE render
-$twig->addGlobal('session', $_SESSION);
+$twig->addGlobal('session', $_SESSION); // Share session
 
-// Render
+// Render form
 echo $twig->render("event_form.twig", [
     "title"       => "Edit Event",
     "button_text" => "Update Event",

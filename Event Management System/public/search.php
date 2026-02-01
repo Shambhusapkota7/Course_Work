@@ -1,8 +1,9 @@
 <?php
-require_once dirname(__DIR__) . "/vendor/autoload.php";
-require_once dirname(__DIR__) . "/config/db.php";
+require_once dirname(__DIR__) . "/vendor/autoload.php"; // Twig
+require_once dirname(__DIR__) . "/config/db.php";        // DB
 
-session_start();
+session_start(); // Session
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
@@ -13,10 +14,12 @@ $location = trim($_GET['location'] ?? '');
 $date     = trim($_GET['date'] ?? '');
 
 $searched = isset($_GET['search']);
-$events = [];
+$events   = [];
 
+// Build search query
 if ($searched) {
-    $sql = "SELECT * FROM events WHERE 1=1";
+
+    $sql    = "SELECT * FROM events WHERE 1=1";
     $params = [];
 
     if ($q !== '') {
@@ -39,11 +42,9 @@ if ($searched) {
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Twig setup
+// Twig
 $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__) . "/templates");
-$twig = new Twig\Environment($loader);
-
-// ✅ Add globals BEFORE render
+$twig   = new Twig\Environment($loader);
 $twig->addGlobal('session', $_SESSION);
 
 // Render

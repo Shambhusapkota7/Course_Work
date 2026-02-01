@@ -1,11 +1,12 @@
 <?php
-require_once dirname(__DIR__) . "/config/db.php";
+require_once dirname(__DIR__) . "/config/db.php"; // DB
 
 $q = trim($_GET['q'] ?? '');
 if ($q === '') {
     exit;
 }
 
+// Fetch matching events
 $stmt = $pdo->prepare(
     "SELECT event_name
      FROM events
@@ -21,6 +22,7 @@ if (!$results) {
     exit;
 }
 
+// Output results
 foreach ($results as $row) {
     $name = htmlspecialchars($row['event_name'], ENT_QUOTES, 'UTF-8');
     echo "<div class='search-item' data-name=\"{$name}\">{$name}</div>";
