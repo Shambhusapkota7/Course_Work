@@ -26,12 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
         timer = setTimeout(() => {
             const excludeId = excludeIdEl ? excludeIdEl.value : "";
 
-            // ✅ correct path
+            // ✅ CORRECT PATH
             fetch(
-                "../ajax/validate.php?event_name=" +
-                encodeURIComponent(value) +
-                "&exclude_id=" +
-                encodeURIComponent(excludeId)
+                `../ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${encodeURIComponent(excludeId)}`
             )
                 .then(res => res.json())
                 .then(data => {
@@ -39,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     msg.style.color = data.ok ? "green" : "red";
                 })
                 .catch(() => {
-                    msg.textContent = "Validation failed. Try again.";
+                    msg.textContent = "Validation failed.";
                     msg.style.color = "red";
                 });
         }, 300);

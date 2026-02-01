@@ -3,30 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title|default('Event Management System') }}</title>
-   <link rel="stylesheet" href="../assets/css/style.css">
-<script src="../assets/js/ajax.js" defer></script>
-<script src="../assets/js/validation.js" defer></script>
 
-    <input type="hidden" id="exclude_id" value="EVENT_ID">
-
-
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/ajax.js" defer></script>
+    <script src="../assets/js/validation.js" defer></script>
 </head>
 <body>
 
 <h1>Event Management System</h1>
-<hr>
-{% if session.user_name is defined %}
-    <div style="float:right;">
-        Welcome, {{ session.user_name|e }} |
-        <a href="logout.php">Logout</a>
-    </div>
-{% endif %}
 
+{% if session.user_name is defined %}
+<div class="auth-bar">
+    Welcome, {{ session.user_name|e }} |
+    <a href="logout.php">Logout</a>
+</div>
+{% endif %}
 
 {% block content %}{% endblock %}
 
 <footer>
-    <p>© 2026 Event Management System</p>
+    © 2026 Event Management System
 </footer>
 
 </body>
