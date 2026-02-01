@@ -26,9 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
         timer = setTimeout(() => {
             const excludeId = excludeIdEl ? excludeIdEl.value : "";
 
-            // ✅ CORRECT PATH
+            // ✅ correct path
             fetch(
-                `../ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${encodeURIComponent(excludeId)}`
+                "../ajax/validate.php?event_name=" +
+                encodeURIComponent(value) +
+                "&exclude_id=" +
+                encodeURIComponent(excludeId)
             )
                 .then(res => res.json())
                 .then(data => {

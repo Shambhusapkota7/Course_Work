@@ -23,6 +23,5 @@ if (!$results) {
 
 foreach ($results as $row) {
     $name = htmlspecialchars($row['event_name'], ENT_QUOTES, 'UTF-8');
-
     echo "<div class='search-item' data-name=\"{$name}\">{$name}</div>";
 }

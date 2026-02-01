@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // ✅ CORRECT PATH (go up from /public/)
+        // ✅ correct path (from /public/)
         fetch("../ajax/search_autocomplete.php?q=" + encodeURIComponent(query))
             .then(res => res.text())
             .then(data => {
