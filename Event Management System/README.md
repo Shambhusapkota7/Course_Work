@@ -59,7 +59,7 @@ The system has been deployed on the **student college server** and follows the r
 - Styled buttons, tables, and forms
 
 ## 📁 Project Structure
-
+```text
 Event Management System/
 ├── ajax/
 │   ├── search_autocomplete.php   # Ajax live search (autocomplete)
@@ -106,8 +106,7 @@ Event Management System/
 ├── composer.json                 # Composer configuration
 ├── composer.lock                 # Composer lock file
 └── README.md                     # Project documentation
-
-
+```
 ## Database Setup
 
 1. Open **phpMyAdmin**
