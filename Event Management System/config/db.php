@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$db   = "event_management";
-$user = "root";
-$pass = "";
+$db   = "np02cs4a240060";
+$user = "np02cs4a240060";
+$pass = "LwK14Mh4Aw";
 
 try {
     $pdo = new PDO(
