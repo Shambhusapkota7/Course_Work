@@ -12,11 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // ✅ RELATIVE PATH (CORRECT)
-        fetch("ajax/search_autocomplete.php?q=" + encodeURIComponent(query))
+        // ✅ CORRECT PATH (go up from /public/)
+        fetch("../ajax/search_autocomplete.php?q=" + encodeURIComponent(query))
             .then(res => res.text())
             .then(data => {
                 resultBox.innerHTML = data;
+            })
+            .catch(() => {
+                resultBox.innerHTML = "";
             });
     });
 
