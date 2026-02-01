@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameInput = document.querySelector('input[name="event_name"]');
   if (!nameInput) return;
 
-  // Message area
   let msg = document.getElementById("nameCheckMsg");
   if (!msg) {
     msg = document.createElement("div");
@@ -11,10 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
     nameInput.insertAdjacentElement("afterend", msg);
   }
 
-  // Exclude current record (edit mode)
   const excludeIdEl = document.getElementById("exclude_id");
-
   let timer = null;
+
+  // ✅ Detect base path automatically
+  const basePath = window.location.pathname
+    .split("/")
+    .slice(0, -1)
+    .join("/");
 
   nameInput.addEventListener("input", () => {
     clearTimeout(timer);
@@ -29,9 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
     timer = setTimeout(() => {
       const excludeId = excludeIdEl ? excludeIdEl.value : "";
 
-      // ✅ RELATIVE PATH (CORRECT)
       fetch(
-        `ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${encodeURIComponent(excludeId)}`
+        `${basePath}/ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${encodeURIComponent(excludeId)}`
       )
         .then(res => res.json())
         .then(data => {
