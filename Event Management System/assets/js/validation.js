@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
         msg = document.createElement("div");
         msg.id = "nameCheckMsg";
         msg.style.marginTop = "6px";
-        nameInput.insertAdjacentElement("afterend", msg);
+        nameInput.after(msg);
     }
 
     const excludeIdEl = document.getElementById("exclude_id");
-    let timer = null;
+    let timer;
 
     nameInput.addEventListener("input", () => {
         clearTimeout(timer);
@@ -26,10 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         timer = setTimeout(() => {
             const excludeId = excludeIdEl ? excludeIdEl.value : "";
 
-            // ✅ CORRECT PATH
-            fetch(
-                `../ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${encodeURIComponent(excludeId)}`
-            )
+            fetch(`../ajax/validate.php?event_name=${encodeURIComponent(value)}&exclude_id=${excludeId}`)
                 .then(res => res.json())
                 .then(data => {
                     msg.textContent = data.message;
